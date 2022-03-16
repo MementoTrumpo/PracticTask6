@@ -142,13 +142,48 @@ namespace PracticTask6
         public string PlaceOfBirth
         {
             get { return placeOfBirth; }
-            set { placeOfBirth = value; }
+            set 
+            {
+                if (string.IsNullOrEmpty(value) || value.Length > 40)
+                {
+                    throw new ArgumentException($"Ошибка! Поле места рождения {nameof(placeOfBirth)} сотрудника не может быть пустым или иметь более 40 символов.");
+                }
+                else
+                {
+                    placeOfBirth = value;
+                }
+            }
         }
 
+        public Employee() { }
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
+        /// <param name="id">ID сотрудника</param>
+        /// <param name="dateTimeNote">Дата записи сотрудника</param>
+        /// <param name="age">Возраст сотрудника</param>
+        /// <param name="firstName">Имя сотрудника</param>
+        /// <param name="secondName">Фамилия сотрудника</param>
+        /// <param name="thirdName">Отчество сотрудника</param>
+        /// <param name="dateOfBirth">Дата рождения сотрудника</param>
+        /// <param name="placeOfBirth">Место рождения сотрудника</param>
+        public Employee(int id, DateTime dateTimeNote, int age, string firstName, string secondName, string thirdName, DateTime dateOfBirth, string placeOfBirth)
+        {
+            ID = id;
+            DateTimeNote = dateTimeNote;
+            Age = age;
+            FirstName = firstName;
+            SecondName = secondName;
+            ThirdName = thirdName;
+            DateOfBirth = dateOfBirth;
+            PlaceOfBirth = placeOfBirth;
+        }
 
-
-
-
+       /// <summary>
+       /// Проверка строки на наличие цифр
+       /// </summary>
+       /// <param name="str">Исходная строка для проверки на наличие цифр</param>
+       /// <returns>true - если в строке только буквы, иначе - false</returns>
         public static bool IsAllLetters(string str)
         {
             foreach(char symbol in str)
@@ -162,7 +197,10 @@ namespace PracticTask6
             return true;
         }
 
-
+        /// <summary>
+        /// Установка ID сотрудника случайным образом
+        /// </summary>
+        /// <returns>Значение свойства ID пользователя</returns>
         public int SetIDValue()
         {
             Random rand = new Random();
